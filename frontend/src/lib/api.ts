@@ -1,5 +1,8 @@
+/** 빈 문자열이면 같은 출처 `/api` 사용 (통합 Docker 배포용) */
 export const API_BASE =
-  process.env.NEXT_PUBLIC_API_BASE?.replace(/\/+$/, "") || "http://localhost:8000";
+  process.env.NEXT_PUBLIC_API_BASE !== undefined
+    ? process.env.NEXT_PUBLIC_API_BASE.replace(/\/+$/, "")
+    : "http://localhost:8000";
 
 export async function apiGet<T>(path: string): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, { cache: "no-store" });

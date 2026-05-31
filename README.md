@@ -59,3 +59,10 @@ npm run dev
 - 업로드 음성: `backend/storage/audio/*`
 - 업로드 문서: `backend/storage/docs/*`
 
+## 배포
+
+프로덕션 배포는 **Render 통합 Docker**를 권장합니다. 자세한 절차는 [DEPLOY.md](./DEPLOY.md)를 참고하세요.
+
+- 통합 배포: 루트 `Dockerfile` + `render.yaml`
+- 분리 배포: `frontend` → Vercel, `backend` → Render (`backend/Dockerfile`)
+

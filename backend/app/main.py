@@ -1,9 +1,19 @@
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from .db import init_db
+from .paths import storage_dir
 from .routes import analysis, documents, questions, sessions
+
+
+def _cors_origins() -> list[str]:
+    raw = os.getenv("ALLOWED_ORIGINS", "").strip()
+    if raw:
+        return [o.strip() for o in raw.split(",") if o.strip()]
+    return ["*"]
 
 
 def create_app() -> FastAPI:
@@ -12,7 +22,7 @@ def create_app() -> FastAPI:
 
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        allow_origins=_cors_origins(),
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -23,11 +33,8 @@ def create_app() -> FastAPI:
     app.include_router(questions.router, prefix="/api")
     app.include_router(analysis.router, prefix="/api")
 
-    storage_dir = (  # backend/storage
-        __import__("pathlib").Path(__file__).resolve().parents[1] / "storage"
-    )
-    storage_dir.mkdir(parents=True, exist_ok=True)
-    app.mount("/api/storage", StaticFiles(directory=str(storage_dir)), name="storage")
+    root = storage_dir()
+    app.mount("/api/storage", StaticFiles(directory=str(root)), name="storage")
 
     @app.on_event("startup")
     def _startup() -> None:

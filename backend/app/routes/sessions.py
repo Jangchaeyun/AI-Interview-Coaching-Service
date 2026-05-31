@@ -9,10 +9,11 @@ from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 from pydantic import BaseModel, Field
 
 from .. import db
+from ..paths import storage_dir
 
 router = APIRouter(tags=["sessions"])
 
-STORAGE_DIR = Path(__file__).resolve().parents[2] / "storage"
+STORAGE_DIR = storage_dir()
 AUDIO_DIR = STORAGE_DIR / "audio"
 
 

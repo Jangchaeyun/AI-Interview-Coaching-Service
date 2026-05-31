@@ -1,0 +1,20 @@
+# Render Blueprint: https://render.com/docs/blueprint-spec
+# GitHub 연결 후 "New > Blueprint" 또는 저장소 Import 시 자동 적용
+services:
+  - type: web
+    name: ai-interview-coaching
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: STORAGE_DIR
+        value: /var/data
+      - key: NODE_ENV
+        value: production
+    # 영구 디스크는 유료 인스턴스에서만 가능합니다.
+    # 유료 플랜 사용 시 아래 disk 블록 주석을 해제하세요.
+    # disk:
+    #   name: ai-interview-data
+    #   mountPath: /var/data
+    #   sizeGB: 1

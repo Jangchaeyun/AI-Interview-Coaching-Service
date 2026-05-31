@@ -1,15 +1,19 @@
 from __future__ import annotations
 
 import sqlite3
-from pathlib import Path
 from typing import Any, Iterable
 
-DB_PATH = Path(__file__).resolve().parents[1] / "storage" / "app.db"
+from .paths import storage_dir
+
+
+def db_path():
+    return storage_dir() / "app.db"
 
 
 def _connect() -> sqlite3.Connection:
-    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(DB_PATH)
+    path = db_path()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(path)
     conn.row_factory = sqlite3.Row
     return conn
 

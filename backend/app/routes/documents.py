@@ -9,11 +9,12 @@ from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 from pydantic import BaseModel
 
 from .. import db
+from ..paths import storage_dir
 from ..services.text_extract import extract_text_from_file
 
 router = APIRouter(tags=["documents"])
 
-STORAGE_DIR = Path(__file__).resolve().parents[2] / "storage"
+STORAGE_DIR = storage_dir()
 DOCS_DIR = STORAGE_DIR / "docs"
 
 
