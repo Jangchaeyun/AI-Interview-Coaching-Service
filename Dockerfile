@@ -19,6 +19,10 @@ WORKDIR /app
 COPY backend/requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
+# Next.js standalone 실행용 Node (frontend-build 스테이지에서 복사)
+COPY --from=frontend-build /usr/local/bin/node /usr/local/bin/node
+COPY --from=frontend-build /usr/local/lib/node_modules /usr/local/lib/node_modules
+
 COPY backend/app ./app
 COPY --from=frontend-build /src/frontend/.next/standalone ./
 COPY --from=frontend-build /src/frontend/.next/static ./.next/static
