@@ -1,0 +1,12 @@
+**/.venv
+**/node_modules
+**/.next
+**/out
+**/__pycache__
+**/*.pyc
+.git
+.cursor
+backend/storage/*
+!backend/storage/.gitkeep
+frontend/.env*.local
+**/.git
