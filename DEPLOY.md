@@ -18,10 +18,16 @@ git push origin main
 
 ### 2. Render에서 Blueprint 배포
 
+**원클릭(권장):** [Render에 배포하기](https://render.com/deploy?repo=https://github.com/Jangchaeyun/AI-Interview-Coaching-Service)
+
+또는 수동으로:
+
 1. [Render](https://render.com) 로그인 → **New** → **Blueprint**
 2. GitHub 저장소 `Jangchaeyun/AI-Interview-Coaching-Service` 연결
 3. `render.yaml`이 자동으로 인식되면 **Apply**
 4. 배포 완료 후 표시되는 URL 접속 (예: `https://ai-interview-coaching.onrender.com`)
+
+> 첫 배포는 Docker 빌드 때문에 **5~10분** 걸릴 수 있습니다. 무료 플랜은 미사용 시 슬립되어 첫 접속이 느릴 수 있습니다.
 
 헬스 체크: `https://<your-app>.onrender.com/api/health`
 
